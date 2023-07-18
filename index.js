@@ -19,16 +19,31 @@ const main = async() => {
                 const places = await searches.city(placeToSearch);
                 
                 const id = await listPlaces(places);
-                
+                if(id === '0') continue;
+
                 const {name,lat,lng} = places.find(place => place.id === id);
 
+                searches.addHistory(name)
+
+                const {description,temperature,maxTemperature,minTemperature} = await searches.weatherPlace(lat,lng);
+
+                console.clear()
                 console.log('\nCity information\n'.green);
-                console.log('City:',name);
+                console.log('City:',name.green);
                 console.log('Latitude:',lat);
                 console.log('Longitude:',lng);
-                console.log('Temperature:');
-                console.log('Min. Temp.:');
-                console.log('Max. Temp.:');
+                console.log('Temperature:',temperature);
+                console.log('Min. Temp.:',minTemperature);
+                console.log('Max. Temp.:',maxTemperature);
+                console.log('What the weather looks like:',description.green);
+            break;
+
+            case 2:
+                console.log('\n')
+                searches.capitalizedHistory.forEach((place,i) => {
+                    const idx = `${i + 1}.`.green;
+                    console.log(`${idx} ${place}`)
+                })
             break;
         }
 
