@@ -1,5 +1,6 @@
-import { inquirerMenu, pause, readInput } from "./helpers/inquirer.js";
+import { inquirerMenu, listPlaces, pause, readInput } from "./helpers/inquirer.js";
 import Searches from "./models/searches.js";
+import 'dotenv/config.js'
 
 const main = async() => {
 
@@ -13,13 +14,18 @@ const main = async() => {
         switch(option){
             case 1:
 
-                const place = await readInput('City: ');
-                console.log(place);
+                const placeToSearch = await readInput('City: ');
+                
+                const places = await searches.city(placeToSearch);
+                
+                const id = await listPlaces(places);
+                
+                const {name,lat,lng} = places.find(place => place.id === id);
 
                 console.log('\nCity information\n'.green);
-                console.log('City:');
-                console.log('Latitude:');
-                console.log('Longitude:');
+                console.log('City:',name);
+                console.log('Latitude:',lat);
+                console.log('Longitude:',lng);
                 console.log('Temperature:');
                 console.log('Min. Temp.:');
                 console.log('Max. Temp.:');
