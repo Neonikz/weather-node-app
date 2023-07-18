@@ -12,7 +12,7 @@
   "author": "Nicolas Heizenreder",
   "license": "ISC",
   "dependencies": {
-    "color": "^4.2.3",
+    "colors": "^1.4.0",
     "inquirer": "^9.2.8"
   }
 }
